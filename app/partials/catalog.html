@@ -1,0 +1,42 @@
+<div class="container-fluid o-catalog">
+  <div class="row">
+    <div class="col-md-12">
+      <h2 class="text-center">Your chance to choose from our selection of {{models.length}} models</h2>
+    </div>
+  </div>
+  <div class="row o-order-info">
+    <div class="col-md-12">
+      <a class="btn btn-success btn-xs pull-right ng-hide o-order-view" ng-show="order.items.length"
+        href="#/order"
+        >Proceed to order</a>
+      <span class="pull-right">Number of items in cart: {{order.itemCount}}</span>
+    </div>
+  </div>
+  <div class="alert" ng-class="{'alert-danger': alertType === 'error', 'alert-warning': alertType === 'warning', 'alert-info': alertType === 'info'}" role="alert" ng-show="alertText">{{alertText}}</div>
+  <div class="row">
+    <!--<div class="col-md-12">-->
+      <!--Body content-->
+      <div ng-repeat="model in models" ng-controller="CatalogItemCtrl" class="col-xs-4 col-sm-4 ol-md-4 o-model">
+        <div class="thumbnail">
+          <div class="caption">
+            <img ng-src="{{model.img}}" alt="image of {{mode.name}}" />
+            <h3>{{model.name}}</h3>
+            <p class="o-price">{{model.price}} BGN</p>
+            <span class="o-size">Size: 
+              <select ng-model="model.size" ng-options="size.size_id for size in model.available_sizes track by size.size_id"
+                ng-change="reflectChangedSize()">
+                <option value="">- choose size -</option>
+              </select>
+            </span>
+            <button ng-click="addToOrder(model.id, model.size.size_id)" ng-disabled="!isAvailable" class="btn btn-primary o-btn-add">Add to cart</button>
+<!--
+            <a href="#/model/{{model.id}}" class="thumb"><img ng-src="{{model.img}}"</a>
+          <a href="#/model/{{model.id}}">{{model.name}}</a>
+          <p>{{model.price}}</p>
+          -->
+          </div>
+        </div>
+      </div>
+    <!--</div>-->
+  </div>
+</div>
